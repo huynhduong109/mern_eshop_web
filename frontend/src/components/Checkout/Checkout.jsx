@@ -34,7 +34,7 @@ const Checkout = () => {
       country === "" ||
       city === ""
     ) {
-      toast.error("Please choose your delivery address!");
+      toast.error("Vui lòng chọn địa chỉ giao hàng!");
     } else {
       const shippingAddress = {
         address1,

@@ -35,14 +35,14 @@ const AdminHeader = () => {
             />
           </Link>
           <Link to="/dashboard-products" className="800px:block hidden">
-            <FiShoppingBag
+            <FiPackage
               color="#555"
               size={30}
               className="mx-5 cursor-pointer"
             />
           </Link>
           <Link to="/dashboard-orders" className="800px:block hidden">
-            <FiPackage color="#555" size={30} className="mx-5 cursor-pointer" />
+            <FiShoppingBag color="#555" size={30} className="mx-5 cursor-pointer" />
           </Link>
           <Link to="/dashboard-messages" className="800px:block hidden">
             <BiMessageSquareDetail

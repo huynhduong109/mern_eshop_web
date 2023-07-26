@@ -28,42 +28,42 @@ const AllWithdraw = () => {
   }, []);
 
   const columns = [
-    { field: "id", headerName: "Withdraw Id", minWidth: 150, flex: 0.7 },
+    { field: "id", headerName: "Mã yêu cầu", minWidth: 150, flex: 0.7 },
     {
       field: "name",
-      headerName: "Shop Name",
+      headerName: "Tên cửa hàng",
       minWidth: 180,
       flex: 1.4,
     },
     {
       field: "shopId",
-      headerName: "Shop Id",
+      headerName: "Mã cửa hàng",
       minWidth: 180,
       flex: 1.4,
     },
     {
       field: "amount",
-      headerName: "Amount",
+      headerName: "Số tiền",
       minWidth: 100,
       flex: 0.6,
     },
     {
       field: "status",
-      headerName: "status",
+      headerName: "Tình trạng",
       type: "text",
       minWidth: 80,
       flex: 0.5,
     },
     {
       field: "createdAt",
-      headerName: "Request given at",
+      headerName: "Ngày tạo",
       type: "number",
       minWidth: 130,
       flex: 0.6,
     },
     {
       field: " ",
-      headerName: "Update Status",
+      headerName: "Cập nhật tình trạng",
       type: "number",
       minWidth: 130,
       flex: 0.6,
@@ -91,7 +91,7 @@ const AllWithdraw = () => {
         { withCredentials: true }
       )
       .then((res) => {
-        toast.success("Withdraw request updated successfully!");
+        toast.success("Cập nhật yêu cầu rút tiền thành công!");
         setData(res.data.withdraws);
         setOpen(false);
       });

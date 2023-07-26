@@ -125,7 +125,7 @@ const AdminSideBar = ({ active }) => {
               active === 7 ? "text-[crimson]" : "text-[#555]"
             }`}
           >
-            Withdraw Request
+          Yêu cầu rút tiền
           </h5>
         </Link>
       </div>

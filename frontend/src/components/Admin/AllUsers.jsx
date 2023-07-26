@@ -32,11 +32,11 @@ const AllUsers = () => {
   };
 
   const columns = [
-    { field: "id", headerName: "User ID", minWidth: 150, flex: 0.7 },
+    { field: "id", headerName: "Mã người dùng", minWidth: 150, flex: 0.7 },
 
     {
       field: "name",
-      headerName: "name",
+      headerName: "Tên",
       minWidth: 130,
       flex: 0.7,
     },
@@ -49,7 +49,7 @@ const AllUsers = () => {
     },
     {
       field: "role",
-      headerName: "User Role",
+      headerName: "Vai trò",
       type: "text",
       minWidth: 130,
       flex: 0.7,
@@ -57,7 +57,7 @@ const AllUsers = () => {
 
     {
       field: "joinedAt",
-      headerName: "joinedAt",
+      headerName: "Ngày tham gia",
       type: "text",
       minWidth: 130,
       flex: 0.8,
@@ -67,7 +67,7 @@ const AllUsers = () => {
       field: " ",
       flex: 1,
       minWidth: 150,
-      headerName: "Delete User",
+      headerName: "Xóa người dùng",
       type: "number",
       sortable: false,
       renderCell: (params) => {
@@ -114,20 +114,20 @@ const AllUsers = () => {
                 <RxCross1 size={25} onClick={() => setOpen(false)} />
               </div>
               <h3 className="text-[25px] text-center py-5 font-Poppins text-[#000000cb]">
-                Are you sure you wanna delete this user?
+                Bạn có chắc chắn muốn xóa người dùng này?
               </h3>
               <div className="w-full flex items-center justify-center">
                 <div
                   className={`${styles.button} text-white text-[18px] !h-[42px] mr-4`}
                   onClick={() => setOpen(false)}
                 >
-                  cancel
+                  Trở về
                 </div>
                 <div
                   className={`${styles.button} text-white text-[18px] !h-[42px] ml-4`}
                   onClick={() =>  setOpen(false) || handleDelete(userId)}
                 >
-                  confirm
+                  Xác nhận
                 </div>
               </div>
             </div>
