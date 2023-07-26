@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { AiOutlineArrowRight, AiOutlineMoneyCollect } from "react-icons/ai";
 import styles from "../../styles/styles";
 import { Link } from "react-router-dom";
@@ -8,13 +8,17 @@ import { getAllOrdersOfShop } from "../../redux/actions/order";
 import { getAllProductsShop } from "../../redux/actions/product";
 import { Button } from "@material-ui/core";
 import { DataGrid } from "@material-ui/data-grid";
+import { Element, Link as ScrollLink } from "react-scroll";
 
 const DashboardHero = () => {
   const dispatch = useDispatch();
   const { orders } = useSelector((state) => state.order);
   const { seller } = useSelector((state) => state.seller);
   const { products } = useSelector((state) => state.products);
-
+  const [valStartDay, setValStartDay] = useState("");
+  const [valEndDay, setValEndDay] = useState("");
+  const targetRef = useRef();
+  console.log("orders", orders);
   useEffect(() => {
     dispatch(getAllOrdersOfShop(seller._id));
     dispatch(getAllProductsShop(seller._id));
@@ -25,6 +29,31 @@ const DashboardHero = () => {
       style: "currency",
       currency: "VND",
     }) + "";
+
+  const scrollToTarget = () => {
+    targetRef.current.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const handleStartDayChange = (e) => {
+    setValStartDay(e.target.value);
+  };
+  const handleEndDayChange = (e) => {
+    setValEndDay(e.target.value);
+  };
+  const getAllProducts = orders?.filter((item) => {
+    const orderDate = new Date(item.createdAt.slice(0, 10));
+    return (
+      orderDate >= new Date(valStartDay) &&
+      orderDate <= new Date(valEndDay) &&
+      item.status === "Delivered"
+    );
+  });
+
+  const sumOder = getAllProducts?.reduce((total, item) => {
+    return total + item.totalPrice;
+  }, 0);
+  console.log("đã thanh toán", getAllProducts);
+  console.log("sumOder", sumOder);
 
   const columns = [
     { field: "id", headerName: "Mã đơn hàng", minWidth: 150, flex: 0.7 },
@@ -111,9 +140,28 @@ const DashboardHero = () => {
           <h5 className="pt-2 pl-[36px] text-[22px] font-[500]">
             {availableBalance}
           </h5>
-          <Link to="/dashboard-withdraw-money">
-            <h5 className="pt-4 pl-[2] text-[#077f9c]">Rút tiền</h5>
-          </Link>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}>
+            <Link to="/dashboard-withdraw-money">
+              <h5 className="pt-4 pl-[2] text-[#077f9c]">Rút tiền</h5>
+            </Link>
+            <ScrollLink
+              style={{
+                cursor: "pointer",
+                lineHeight: "none",
+                color: "#077fb6",
+                paddingTop: "16px",
+              }}
+              to="target"
+              smooth={true}
+              duration={100}>
+              Thống kê
+            </ScrollLink>
+          </div>
         </div>
 
         <div className="w-full mb-4 800px:w-[30%] min-h-[20vh] bg-white shadow rounded px-2 py-5">
@@ -162,6 +210,49 @@ const DashboardHero = () => {
           disableSelectionOnClick
           autoHeight
         />
+        {/* Thống kê */}
+        <Element
+          name="target"
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            padding: "20px",
+            background: "#ccc",
+          }}>
+          <h1 style={{ fontSize: "20px", fontWeight: "700" }}>
+            Thống kê doanh thu----
+          </h1>
+          <div>
+            <label>Ngày bắt đầu: </label>
+            <input
+              style={{ border: "1px solid black" }}
+              value={valStartDay}
+              type="date"
+              onChange={handleStartDayChange}></input>
+            <label style={{ marginLeft: "50px" }}>Ngày kết thúc: </label>
+            <input
+              style={{ border: "1px solid black" }}
+              className="border border-solid border-red-500"
+              type="date"
+              value={valEndDay}
+              onChange={handleEndDayChange}></input>
+          </div>
+          <div
+            style={{
+              fontSize: "20px",
+              fontWeight: "700",
+              padding: "50px",
+              float: "right",
+            }}>
+            <span>Tổng sản phẩm: </span>
+            <span style={{ color: "#294fff" }}>
+              {sumOder?.toLocaleString("vi-VN", {
+                style: "currency",
+                currency: "VND",
+              }) + ""}
+            </span>
+          </div>
+        </Element>
       </div>
     </div>
   );

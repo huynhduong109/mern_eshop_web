@@ -77,7 +77,10 @@ const AdminDashboardMain = () => {
       row.push({
         id: item._id,
         itemsQty: item?.cart?.reduce((acc, item) => acc + item.qty, 0),
-        total: item?.totalPrice,
+        total: item?.totalPrice.toLocaleString("vi-VN", {
+          style: "currency",
+          currency: "VND",
+        }) + "",
         status: item?.status,
         createdAt: item?.createdAt.slice(0, 10),
       });
