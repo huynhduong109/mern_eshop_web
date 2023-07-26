@@ -244,7 +244,7 @@ const DashboardHero = () => {
               padding: "50px",
               float: "right",
             }}>
-            <span>Tổng sản phẩm: </span>
+            <span>Tổng doanh thu: </span>
             <span style={{ color: "#294fff" }}>
               {sumOder?.toLocaleString("vi-VN", {
                 style: "currency",
